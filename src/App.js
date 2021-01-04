@@ -5,6 +5,7 @@ import Products from './components/Products/Products'
 import {commerce} from './lib/commerce'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Checkout from './components/CheckoutForm/Checkout/Checkout'
+import './styles.css'
 
 
 function App() {
@@ -12,13 +13,13 @@ function App() {
     const [cart, setCart] = useState({})
     const [order, setOrder] = useState({})
     const [errorMessage, setErrorMessage] = useState('')
-
+  
     const fetchProducts = async () =>{
         const {data} = await commerce.products.list();
 
         setProducts(data)
     }
-
+  
     const fetchCart = async () =>{
         const cart = await commerce.cart.retrieve();
 
@@ -94,9 +95,8 @@ function App() {
                          onCaptureCheckout={handleCaptureCheckout} 
                          error={errorMessage}
                          />
-                    </Route>
-                </Switch>
-                        
+                    </Route> 
+                </Switch>{products.length<=0 && <div className="loading"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/25702a69321565.5b7d0cbe75e1a.gif" alt="loading"/> </div>}
          </div>
         </Router>
        
